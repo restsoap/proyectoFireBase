@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Firabase</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/restaurante.css">
+</head>
+
+<body>
+
+    <div class="bg-dark" id="barraMenuId">
+        <div class="d-flex justify-content-center row ">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-md-9">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item" id="itemRestaurante">
+                            <a class="nav-link active" href="/restaurante.html">Restaurantes</a>
+                        </li>
+                        <li class="nav-item" id="itemUsuario">
+                            <a class="nav-link" href="/usuarios.html">Usuarios</a>
+                        </li>
+
+                        <li class="nav-item" id="itemComentario">
+                            <a class="nav-link " href="/comentario.html" tabindex="-1" aria-disabled="true">
+                                Comentarios</a>
+                        </li>
+
+                        
+                        <li class="nav-item" id="itemVerComentario">
+                            <a class="nav-link " href="/verComentarios.html" tabindex="-1" aria-disabled="true">
+                                Ver Comentarios</a>
+                        </li>
+
+                        <li class="nav-item" id="itemComentario">
+                            <a class="nav-link" href="/actualizar.html" tabindex="-1" aria-disabled="true"
+                            >
+                              Actualizar Datos</a>
+                        </li>
+                        
+                        <li class="nav-item" id="itemSalir" style="cursor: pointer;">
+                            <a class="nav-link " tabindex="-1" aria-disabled="true" onclick="salir()">
+                                Salir</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+            <!-- Foto y el nombre de la persona logueada-->
+            <div id="divDatosUsu" style="visibility: hidden;" class="text-white d-flex justify-content-center align-items-center bg-dark
+                         col-md-3">
+                <label class="mr-2 text-white " id="lblNombreUsuario"></label>
+                <img id="imgFotoUsuario" src="asset/img/nouser.jpg" width="40" height="40" />
+            </div>
+
+        </div>
+    </div>
+
+
+    <br>
+    <input type="button" value="Nuevo Restante" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                    onclick="abrirModal(0)" />
+
+    <div id="divRestaurante">
+
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="lblTitulo"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Nombre:</label>
+                <input type="text" id="txtnombre" class="form-control"/>
+                <label>Direccion:</label>
+                <input type="text" id="txtdireccion" class="form-control"/>
+                <label>Foto</label>
+                <img id="imgFoto" width="200" height="200" class="d-block" style="border:1px" src="asset/img/nouser.jpg"/>
+                <input type="file" id="fileImage" accept="image/*"  onchange="subirImage(this)"  />
+                <label class="d-block">Subir Archivo en PDF</label>
+                <iframe id="iframePreview" src="" width="200" height="200" ></iframe>
+                <input  type="file" id="file" accept="application/pdf"  onchange="subirArchivo(this)"  />
+                <input type="button" id="btnDescargar" class="btn btn-primary" onclick="descargarArchivo()" value="Descargar"   />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" onclick="operar()" class="btn btn-primary">Guardar</button>
+            </div>
+      
+            <div class="alert alert-danger" id="alertaErrorCrearRestaurante" role="alert" style="display: none;">
+              
+            </div>
+      
+          </div>
+        </div>
+      </div>      
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+    <script type="module" src="/js/firebase.js"></script>
+    <script type="module" src="/js/restaurante.js"></script>
+</body>
+
+</html>
